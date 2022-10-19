@@ -21,6 +21,10 @@ label {
     margin-bottom: 10px;
 }
 
+.App {
+    margin-top: 50px;
+}
+
 .inputs {
     display: flex;
     flex-direction: column;

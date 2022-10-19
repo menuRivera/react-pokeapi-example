@@ -36,7 +36,7 @@ export default function App() {
           </label>
         </div>
 
-        <button className="btn-query">Query</button>
+        <button className="btn-query">Fetch</button>
       </form>
 
       <List results={results} />
