@@ -1,25 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import List from "./components/List.js"
+import { useState } from 'react'
 
-function App() {
+export default function App() {
+  const url = 'https://pokeapi.co/api/v2/pokemon'
+
+  const [offset, setOffset] = useState(0)
+  const [limit, setLimit] = useState(50)
+  const [results, setResults] = useState([])
+
+  function submitForm(e) {
+    e.preventDefault()
+
+    fetch(`${url}?offset=${offset}&limit=${limit}`)
+      .then(res => res.json())
+      .then(data => {
+        setResults(data.results)
+        console.log(data);
+      })
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>PokéAPI implementation by Manuel Rivera</h1>
+
+      <form onSubmit={submitForm}>
+        <div className="inputs">
+          <label>
+            Limit:
+            <input type="number" value={limit} onChange={(e) => setLimit(e.target.value)} />
+          </label>
+
+          <label>
+            Initial Offset:
+            <input type="number" value={offset} onChange={(e) => setOffset(e.target.value)} />
+          </label>
+        </div>
+
+        <button className="btn-query">Query</button>
+      </form>
+
+      <List results={results} />
     </div>
   );
 }
-
-export default App;
