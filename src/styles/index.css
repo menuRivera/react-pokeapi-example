@@ -14,11 +14,23 @@ button {
     border-radius: 5px;
     padding: 5px;
     font-weight: 600;
-
+    cursor: pointer;
 }
 
 label {
     margin-bottom: 10px;
+}
+
+#modal {
+    padding: 20px;
+    position: fixed;
+    width: 25%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 5px;
+    box-shadow: 5px 5px 5px rgb(184, 184, 184);
+    background-color: rgb(201, 201, 201);
 }
 
 .App {
@@ -42,6 +54,7 @@ label {
 }
 
 .list-item {
+    cursor: pointer;
     background-color: rgb(238, 238, 238);
     padding: 10px;
     display: flex;

@@ -15,7 +15,6 @@ export default function App() {
       .then(res => res.json())
       .then(data => {
         setResults(data.results)
-        console.log(data);
       })
   }
 

@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
+import Item from "./Item";
 
 export default function List(props) {
 
     const [results, setResults] = useState([])
+    const [pokemon, setPokemon] = useState(null)
 
     useEffect(() => {
         setResults(props.results)
@@ -13,17 +15,32 @@ export default function List(props) {
         resultsCopy.splice(index, 1)
 
         setResults(resultsCopy)
-        console.log(index);
+    }
+
+    function openItem(item) {
+        fetch(item.url)
+            .then(res => res.json())
+            .then(pokemon => {
+                setPokemon(pokemon)
+            })
+    }
+
+    function closeItem() {
+        setPokemon(null)
     }
 
     return (
-        <ul>
-            {results.map((item, index) => (
-                <li className="list-item" key={item.name}>
-                    <a href={item.url}>{item.name}</a>
-                    <button className="btn-delete" onClick={() => deleteItem(index)}>Delete</button>
-                </li>
-            ))}
-        </ul>
+        <>
+            <ul>
+                {results.map((item, index) => (
+                    <li className="list-item" key={item.name} onClick={() => openItem(item)}>
+                        <span>{item.name}</span>
+                        <button className="btn-delete" onClick={(e) => { e.stopPropagation(); deleteItem(index) }}>Delete</button>
+                    </li>
+                ))}
+            </ul>
+
+            {pokemon && <Item handleClose={closeItem} pokemon={pokemon} />}
+        </>
     )
 }
